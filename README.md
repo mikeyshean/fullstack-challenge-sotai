@@ -36,6 +36,13 @@ Have fun!
 
 Anything we should know about your implementation? Libraries we need to install for it to work? Commands we need to run?
 
+Local MySQL Setup: 
+- https://dev.mysql.com/downloads/mysql/
+- macOS 13 (ARM, 64-bit), DMG Archive
+- Add to ~/.bash_profile `export PATH=$PATH:/usr/local/mysql/bin`
+- Troubleshooting error when trying to run Django server/migrations: `NameError: name '_mysql' is not defined` [Link](http://www.trainingtutorials101.com/2020/07/libmysqlclient-django-mac-error.html)
+
+
 What features did you add? How do we use these features?
 
 Can you walk us through your thought process for implementing this challenge? How did you approach solving it? Where did you start?
@@ -45,3 +52,7 @@ What was the most difficult part of the challenge?
 What do you like about your implementation?
 
 If you had more time, what would you do next? What would you change? What would you improve?
+
+
+1/19: 1 - 1.5 hrs
+- Project structure overview, local MySQL setup, define model `CpuHours`, migration, seed script
