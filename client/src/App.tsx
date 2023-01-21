@@ -4,6 +4,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { BarChart } from './components/BarChart'
+import { LineChart } from './components/LineChart'
 const queryClient = new QueryClient()
 
 import {
@@ -30,23 +31,23 @@ export function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className='flex w-full flex-col h-screen p-10'>
+      <div className='flex w-full flex-col h-screen py-10 px-5'>
         
-        <div className='flex flex-row p-10 px-40 h-1/2 justify-between'>
-          <div className='w-2/5'>
+        <div className='flex flex-col lg:flex-row p-10 px-0 md:px-40 h-full justify-between'>
+          <div className='w-full pb-5 lg:pb-0 lg:w-2/5 h-full'>
             <BarChart />
           </div>
-          <div className='w-2/5'>
+          <div className='w-full lg:w-2/5 h-full'>
             <BarChart />
           </div>
         </div>
 
-        <div className='flex flex-row p-10 px-40 h-1/2 justify-between'>
-          <div className='w-2/5'>
-            <BarChart />
+        <div className='flex flex-col lg:flex-row p-10 px-0 md:px-40 h-full justify-between'>
+          <div className='w-full pb-5 lg:pb-0 lg:w-2/5 h-full'>
+            <LineChart />
           </div>
-          <div className='w-2/5'>
-            <BarChart />
+          <div className='w-full lg:w-2/5 h-full'>
+            <LineChart />
           </div>
         </div>
       </div>
