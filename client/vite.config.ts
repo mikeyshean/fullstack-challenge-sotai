@@ -2,6 +2,7 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import path from 'path'
 
 export default defineConfig({
   server: {
@@ -15,4 +16,9 @@ export default defineConfig({
     setupFiles: './setupVitest.ts',
   },
   plugins: [react(), tsconfigPaths()],
+  resolve: {
+    alias: [
+      { find: '@', replacement: path.resolve(__dirname, 'src') },
+    ],
+  }
 });
