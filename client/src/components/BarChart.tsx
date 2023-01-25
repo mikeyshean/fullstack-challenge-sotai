@@ -2,7 +2,7 @@
 import { BACKGROUND_COLORS, BORDER_COLORS, range } from '@client/utils'
 import { Bar } from 'react-chartjs-2'
 
-export type DateType = 'MONTH' | 'YEAR'
+export type DateType = 'MONTH' | 'YEAR' | 'WEEKDAY'
 
 type LabelConfig = {
   dateType: DateType
@@ -22,6 +22,10 @@ function getLabels(config: LabelConfig) {
 
   if (config.dateType == 'YEAR' && config.start && config.end) {
     return getYearlyLabels(config.start, config.end)
+  }
+
+  if (config.dateType == 'WEEKDAY') {
+    return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   }
 }
 

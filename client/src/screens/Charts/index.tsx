@@ -29,15 +29,16 @@ const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 
 
 export function ChartsPage() {
-  const [yearRange, setYearRange] = useState([2017, 2022])
+  const [yearRange, setYearRange] = useState({start: 2017, end: 2022})
   const { data: monthlyCpuHours } = api.cpuHours.useListMonthlyHoursByYear({year: 2017})
-  const { data: yearlyCpuHours } = api.cpuHours.useListYearlyHoursByRange({yearStart: yearRange[0], yearEnd: yearRange[1]})
+  const { data: yearlyCpuHours } = api.cpuHours.useListYearlyHoursByRange({yearStart: yearRange.start, yearEnd: yearRange.end})
+  const { data: weekdayCpuHours } = api.cpuHours.useListWeekdayHoursByRange({yearStart: yearRange.start, yearEnd: yearRange.end})
   
   const getMonthlyValues = () => {
     const monthlyValues = new Array(MONTHS_IN_YEAR).fill(0)
   
-    monthlyCpuHours?.forEach(({ total, month }) => {
-      const fullDate = new Date(month)
+    monthlyCpuHours?.forEach(({ total, groupedDate }) => {
+      const fullDate = new Date(groupedDate)
       const monthNumber = fullDate.getMonth()
       monthlyValues[monthNumber] = total
     })
@@ -48,20 +49,37 @@ export function ChartsPage() {
   const getYearlyLabelConfig = () => {
     return {
       dateType: 'YEAR' as DateType,
-      start: yearRange[0],
-      end: yearRange[1]
+      start: yearRange.start,
+      end: yearRange.end
     }
   }
   
   const getYearlyValues = () => {
-    const yearStart = yearRange[0]
-    const yearEnd = yearRange[1]
+    const yearStart = yearRange.start
+    const yearEnd = yearRange.end
     const yearlyValues = new Array(yearEnd-yearStart).fill(0)
   
-    yearlyCpuHours?.forEach(({ total, year }) => {
-      const fullDate = new Date(year)
+    yearlyCpuHours?.forEach(({ total, groupedDate }) => {
+      const fullDate = new Date(groupedDate)
       const yearNumber = fullDate.getFullYear()
       yearlyValues[yearNumber-yearStart] = total
+    })
+    return yearlyValues
+  }
+  
+  const getWeekdayLabelConfig = () => {
+    return {
+      dateType: 'WEEKDAY' as DateType,
+    }
+  }
+  
+  const getWeekdayValues = () => {
+    const yearStart = yearRange.start
+    const yearEnd = yearRange.end
+    const yearlyValues = new Array(yearEnd-yearStart).fill(0)
+  
+    weekdayCpuHours?.forEach(({ total, groupedWeekday }) => {
+      yearlyValues[groupedWeekday-1] = total
     })
     return yearlyValues
   }
@@ -84,7 +102,7 @@ export function ChartsPage() {
           <LineChart dataValues={getMonthlyValues()} dataLabel={"2017"} xLabels={labels} title={"Monthly Usage By Year"} />
         </div>
         <div className='w-full lg:w-2/5 h-full'>
-          <BarChart dataValues={getYearlyValues()} labelConfig={getYearlyLabelConfig()} dataLabel={"CPU Hours"} title={"Yearly Usage By Range"} />
+          <BarChart dataValues={getWeekdayValues()} labelConfig={getWeekdayLabelConfig()} dataLabel={"Day of Week CPU Hours"} title={"Usage by Day of the Week"} />
         </div>
       </div>
     </div>

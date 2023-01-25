@@ -1,11 +1,22 @@
 import { z } from 'zod'
 
-export const MonthlyHoursByYearSchema = z.object({
-  total: z.string(),
-  month: z.string()
-}).array()
 
-export const YearlyHoursByYearSchema = z.object({
+export const HoursByDateSchema = z.object({
   total: z.string(),
-  year: z.string()
-}).array()
+  grouped_date: z.string()
+}).transform((input) => ({
+  total: input.total,
+  groupedDate: input.grouped_date
+}))
+
+export const ListHoursByDateSchema = HoursByDateSchema.array()
+
+export const HoursByWeekdaySchema = z.object({
+  total: z.string(),
+  grouped_weekday: z.number()
+}).transform((input) => ({
+  total: input.total,
+  groupedWeekday: input.grouped_weekday
+}))
+
+export const ListHoursByWeekdaySchema = HoursByWeekdaySchema.array()
