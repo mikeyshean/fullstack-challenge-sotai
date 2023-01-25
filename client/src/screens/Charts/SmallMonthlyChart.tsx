@@ -20,8 +20,9 @@ export function SmallMonthlyChart() {
 
   useEffect(() => {
     if (years && years.length > 0) {
+      console.log(years)
       const items = years.map((year, idx) => { 
-        return { key: idx, value: new Date(year).getFullYear().toString() }
+        return { key: idx, value: (new Date(year).getFullYear()+1).toString() }
       })
       setYearSelectItems(items)
     }
