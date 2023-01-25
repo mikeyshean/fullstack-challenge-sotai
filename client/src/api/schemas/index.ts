@@ -20,3 +20,13 @@ export const HoursByWeekdaySchema = z.object({
 }))
 
 export const ListHoursByWeekdaySchema = HoursByWeekdaySchema.array()
+
+export const HoursByWeekSchema = z.object({
+  total: z.string(),
+  grouped_week: z.number()
+}).transform((input) => ({
+  total: input.total,
+  groupedWeek: input.grouped_week
+}))
+
+export const ListHoursByWeekSchema = HoursByWeekSchema.array()

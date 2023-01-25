@@ -1,3 +1,4 @@
+import { getLabels } from '@client/utils';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,6 +10,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { LabelConfig } from '../types';
 
 ChartJS.register(
   CategoryScale,
@@ -22,7 +24,7 @@ ChartJS.register(
 
 
 
-export function LineChart({ dataValues, xLabels, title, dataLabel }: { dataValues: number[], xLabels: string[], title: string, dataLabel: string }) {
+export function LineChart({ dataValues, labelConfig, title, dataLabel }: { dataValues: number[], labelConfig: LabelConfig, title: string, dataLabel: string }) {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -38,7 +40,7 @@ export function LineChart({ dataValues, xLabels, title, dataLabel }: { dataValue
   };
 
   const data = {
-    labels: xLabels,
+    labels: getLabels(labelConfig),
     datasets: [
       {
         label: dataLabel,

@@ -1,34 +1,8 @@
 
-import { BACKGROUND_COLORS, BORDER_COLORS, range } from '@client/utils'
+import { BACKGROUND_COLORS, BORDER_COLORS } from '@client/constants';
+import { getLabels } from '@client/utils';
 import { Bar } from 'react-chartjs-2'
-
-export type DateType = 'MONTH' | 'YEAR' | 'WEEKDAY'
-
-type LabelConfig = {
-  dateType: DateType
-  count?: number
-  start?: number
-  end?: number
-}
-
-function getYearlyLabels(start: number, end: number) {
-  return range(end-start, start).map(item => String(item))
-}
-
-function getLabels(config: LabelConfig) {
-  if (config.dateType == 'MONTH') {
-    // TODO
-  }
-
-  if (config.dateType == 'YEAR' && config.start && config.end) {
-    return getYearlyLabels(config.start, config.end)
-  }
-
-  if (config.dateType == 'WEEKDAY') {
-    return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  }
-}
-
+import { LabelConfig } from '../types'
 
 export function BarChart({
    dataValues, 
@@ -41,7 +15,6 @@ export function BarChart({
     title: string,
     dataLabel: string
   }) {
-  const xLabels = getLabels(labelConfig)
   
   const options = {
     responsive: true,
@@ -58,7 +31,7 @@ export function BarChart({
   };
 
   const data = {
-    labels: xLabels,
+    labels: getLabels(labelConfig),
     datasets: [
       {
         label: dataLabel,
