@@ -41,6 +41,9 @@ export function ChartOverview() {
           selectedChart ? 'hidden' : '',
           'flex flex-col lg:flex-row p-10 px-0 md:px-10 h-full justify-evenly'
           )}>
+          {/* I only had time to convert this one to its own compoenent
+              With more time, I would have continued converting the remaining to their own.
+           */}
           <SmallMonthlyChart />
             
           <div className='w-full p-5 lg:w-2/5 h-full relative border-gray-400 border'>

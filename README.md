@@ -37,15 +37,18 @@ Have fun!
 Anything we should know about your implementation? Libraries we need to install for it to work? Commands we need to run?
 
 > ### Client
-> In `/client`: <br/>
-> `yarn install --frozen-lockfile` to install dependencies from yarn.lock
+> In `/client`:
+> - Run `yarn install --frozen-lockfile` to install dependencies from yarn.lock
 >
 > ### Backend
-> In `/django_server`: <br/>
-> `pip install -r requirements.txt`
+> In `/django_server`:
+> - Run `pip install -r requirements.txt` to install dependencies <br/>
+> 
+> In project root:
+> - Run `python manage.py seed` to seed database
 
 > ### Local MySQL Setup: 
-> You will probably be able to skip this since you already use MySQL and likely have it already configured locally.  Just in case:
+> You will probably be able to skip this since you already use MySQL and likely have configured locally.  Just in case:
 >  
 > - https://dev.mysql.com/downloads/mysql/
 > - macOS 13 (ARM, 64-bit), DMG Archive (Choose right one for your machine)
@@ -75,7 +78,8 @@ Can you walk us through your thought process for implementing this challenge? Ho
 >
 > Next, I defined a service layer over the ORM that would contain a function for each chart that would be an optimized query to fetch its data.  Each service function would be called in its own View route and be serialized there to be returned as JSON data.
 >
-> On the client, I used React Query to handle my hooks into my backend api and Zod for type validation. For the general UI/UX, I first created a simple one page view of the four charts. To add some interactivity I wanted the user to be able to select different time ranges to adjust the data visualization.  FYI, the components in `/components/Forms` come from another project I was working on, but it was perfect to create the form modal for this feature.  
+> On the client, I used React Query to handle my hooks into my backend api and Zod for type validation. For the general UI/UX, I first created a simple one page view of the four charts. To add some interactivity I wanted the user to be able to select different time ranges to adjust the data visualization.  FYI, the components in `/components/Forms` come from another project I was working on, but it was perfect to create the form modal for this feature. I also added an API to fetch the list of years present in the data set to populate the dropdown, so only valid year selections are possible. I also added a 'full-screen' button to allow the user to expand the view of any given chart.
+> 
 
 
 What was the most difficult part of the challenge?
@@ -84,7 +88,7 @@ What was the most difficult part of the challenge?
 
 What do you like about your implementation?
 > - I think its a good example of leveraging the strengths of both the backend for data management and database querying, and the client for visualizations and user interaction in the browser.
-> - Good use of shared state context though I didn't get to the part where I really get to leverage it for maintaining state between the different views.
+> - Good use of shared state context although I didn't get to showcase everything I wanted to do with it.  Such as maintaining state when switching between charts.
 
 
 If you had more time, what would you do next? What would you change? What would you improve?
@@ -97,6 +101,7 @@ If you had more time, what would you do next? What would you change? What would 
 > - Tests
 > - Exception handling
 
+### Rough Time Breakdown
 Total: ~9.5 hours
 
 1/19: 1.5 hrs
