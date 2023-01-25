@@ -1,6 +1,5 @@
 import { z } from 'zod'
 
-
 export const HoursByDateSchema = z.object({
   total: z.string(),
   grouped_date: z.string()
@@ -30,3 +29,5 @@ export const HoursByWeekSchema = z.object({
 }))
 
 export const ListHoursByWeekSchema = HoursByWeekSchema.array()
+
+export const YearsSchema = z.string().array()

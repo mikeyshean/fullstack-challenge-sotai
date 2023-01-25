@@ -1,15 +1,15 @@
 import { fetcher } from "./fetcher";
 import { useQuery } from '@tanstack/react-query'
-import { ListHoursByDateSchema, ListHoursByWeekdaySchema, ListHoursByWeekSchema } from '@/api/schemas'
+import { ListHoursByDateSchema, ListHoursByWeekdaySchema, ListHoursByWeekSchema, YearsSchema } from '@/api/schemas'
 
 
 export const cpuHoursRouter =  {
-  useListMonthlyHoursByYear: ({year = new Date().getFullYear(), ...args}: { year?: number, [key: string]: any}) => {
+  useListMonthlyHoursByYear: ({year, ...args}: { year?: string, [key: string]: any}) => {
     const queryFn = async () => { 
       try {
         let path = '/cpuhours/monthly-hours-by-year'
         if (year) {
-          const data = { year: String(year) }
+          const data = { year: year }
           path += "?" + new URLSearchParams(data)
         }
         const response = await fetcher(path)
@@ -70,6 +70,19 @@ export const cpuHoursRouter =  {
       }
     }
     return useQuery({ queryKey: [ 'weekly-hours-by-range', dateStart, dateEnd ], queryFn: queryFn, ...args })
+  },
+  
+  useListYears: () => {
+    const queryFn = async () => { 
+      try {
+        const path = '/cpuhours/years'
+        const response = await fetcher(path)
+        return YearsSchema.parse(response)
+      } catch (err) {
+        throw new Error("List Years API Error")
+      }
+    }
+    return useQuery({ queryKey: [ 'years' ], queryFn: queryFn })
   }
 }
 

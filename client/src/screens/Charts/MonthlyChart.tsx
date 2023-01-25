@@ -1,15 +1,17 @@
 import { LineChart } from '@/components/LineChart'
-import { ArrowsPointingOutIcon } from '@heroicons/react/24/outline'
-
 import { api } from '@/api'
 import { getMonthlyLabelConfig } from '@client/utils';
+import { useEffect, useState } from 'react';
+import { useChartContext } from './context';
 
 
 export function MonthlyChart() {
-  const { data: monthlyCpuHours } = api.cpuHours.useListMonthlyHoursByYear({year: 2017})
+  const [monthlyValues, setMonthlyValues] = useState<number[]>([])
+  const { ctxMonthlyYear } = useChartContext()
+  const { data: monthlyCpuHours } = api.cpuHours.useListMonthlyHoursByYear({ year: ctxMonthlyYear.value })
   const MONTHS_IN_YEAR = 12
 
-  const getMonthlyValues = () => {
+  const formatMonthlyValues = () => {
     const monthlyValues = new Array(MONTHS_IN_YEAR).fill(0)
   
     monthlyCpuHours?.forEach(({ total, groupedDate }) => {
@@ -17,10 +19,14 @@ export function MonthlyChart() {
       const monthNumber = fullDate.getMonth()
       monthlyValues[monthNumber] = total
     })
-    return monthlyValues
+    return setMonthlyValues(monthlyValues)
   }
 
+  useEffect(() => {
+    formatMonthlyValues()
+  }, [monthlyCpuHours])
+
   return (
-    <LineChart dataValues={getMonthlyValues()} dataLabel={"2017"} labelConfig={getMonthlyLabelConfig()} title={"Monthly Usage"} />
+    <LineChart dataValues={monthlyValues} dataLabel={ctxMonthlyYear?.value || ''} labelConfig={getMonthlyLabelConfig()} title={"Monthly Usage"} />
   )
 }
