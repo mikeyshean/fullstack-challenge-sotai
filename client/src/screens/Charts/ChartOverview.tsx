@@ -13,9 +13,9 @@ import {
 } from 'chart.js';
 import { classNames } from '@client/utils';
 import { ChartType } from '@client/types';
-import { YearlyChart } from './YearlyChart';
-import { WeeklyChart } from './WeeklyChart';
-import { WeekdayChart } from './WeekdayChart';
+import { YearlyChart } from './components/YearlyChart';
+import { WeeklyChart } from './components/WeeklyChart';
+import { WeekdayChart } from './components/WeekdayChart';
 import { SmallMonthlyChart } from './SmallMonthlyChart';
 import { useChartContext } from './context';
 

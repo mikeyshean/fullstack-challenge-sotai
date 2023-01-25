@@ -2,7 +2,7 @@ import { LineChart } from '@/components/LineChart'
 import { api } from '@/api'
 import { getMonthlyLabelConfig } from '@client/utils';
 import { useEffect, useState } from 'react';
-import { useChartContext } from './context';
+import { useChartContext } from '../context';
 
 
 export function MonthlyChart() {

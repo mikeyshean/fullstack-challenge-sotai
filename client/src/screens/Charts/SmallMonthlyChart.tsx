@@ -3,7 +3,7 @@ import { api } from '@/api'
 import Modal from '@client/components/Forms/Modal';
 import { Select, SelectItem } from '@client/components/Forms/Select';
 import { useEffect, useState } from 'react';
-import { MonthlyChart } from './MonthlyChart';
+import { MonthlyChart } from './components/MonthlyChart';
 import { useChartContext } from './context';
 import { ChartType } from '@client/types';
 

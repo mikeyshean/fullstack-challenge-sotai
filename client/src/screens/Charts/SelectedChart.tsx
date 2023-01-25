@@ -1,7 +1,7 @@
 import { classNames } from '@client/utils';
-import { MonthlyChart } from './MonthlyChart';
+import { MonthlyChart } from './components/MonthlyChart';
 import { ChartType } from '@client/types';
-import { YearlyChart } from './YearlyChart';
+import { YearlyChart } from './components/YearlyChart';
 import { useChartContext } from './context';
 import { ArrowsPointingInIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
