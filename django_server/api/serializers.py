@@ -1,11 +1,9 @@
 from rest_framework import serializers
 
-class MonthlyCpuHoursSerializer(serializers.Serializer):
+class HoursByDateSerializer(serializers.Serializer):
     total = serializers.DecimalField(max_digits=10, decimal_places=2)
-    month = serializers.DateField()
+    grouped_date = serializers.DateField()
 
-
-class YearlyCpuHoursSerializer(serializers.Serializer):
+class HoursByWeekdaySerializer(serializers.Serializer):
     total = serializers.DecimalField(max_digits=10, decimal_places=2)
-    year = serializers.DateField()
-    
+    grouped_weekday = serializers.IntegerField()
