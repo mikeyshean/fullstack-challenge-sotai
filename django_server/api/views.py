@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django_server.api.serializers import HoursByDateSerializer, HoursByWeekdaySerializer
+from django_server.api.serializers import HoursByDateSerializer, HoursByWeekSerializer, HoursByWeekdaySerializer
 from django_server.api.services import CpuHoursService
 
 
@@ -34,4 +34,14 @@ class CpuHoursViewSet(ViewSet):
         cpu_hours = CpuHoursService.list_weekday_hours_by_range(year_start=year_start, year_end=year_end)
 
         serializer = HoursByWeekdaySerializer(cpu_hours, many=True)
+        return Response(serializer.data)
+    
+    @action(detail=False, methods=["get"], url_path="weekly-hours-by-range")
+    def list_weekly_hours_by_range(self, request):
+        params = request.query_params
+        start = params.get("date_start")
+        end = params.get("date_end")
+        cpu_hours = CpuHoursService.list_weekly_hours_by_range(date_start=start, date_end=end)
+
+        serializer = HoursByWeekSerializer(cpu_hours, many=True)
         return Response(serializer.data)
