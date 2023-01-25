@@ -1,16 +1,18 @@
-import { DateType, LabelConfig } from "./types";
-
-
+import { ChartType, LabelConfig } from "./types";
 
 export function range(size: number, startAt = 0) {
   return [...Array(size).keys()].map(i => i + startAt);
+}
+
+export function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(' ')
 }
 
 // Label Configuration
 
 export const getYearlyLabelConfig = (start: number, end: number) => {
   return {
-    dateType: 'YEAR' as DateType,
+    chartType: ChartType.YEARLY,
     start: start,
     end: end
   }
@@ -19,24 +21,24 @@ export const getYearlyLabelConfig = (start: number, end: number) => {
 export const getWeeklyLabelConfig = (start?: number, end?: number) => {
   if (start && end) {
     return {
-      dateType: 'WEEKLY' as DateType,
+      chartType: ChartType.WEEKLY,
       start: start,
       end: end
     }
   }
 
-  return { dateType: 'WEEKLY' as DateType }
+  return { chartType: ChartType.WEEKLY }
 }
 
 export const getMonthlyLabelConfig = () => {
   return {
-    dateType: 'MONTHLY' as DateType,
+    chartType: ChartType.MONTHLY,
   }
 }
 
 export const getWeekdayLabelConfig = () => {
   return {
-    dateType: 'WEEKDAY' as DateType,
+    chartType: ChartType.WEEKDAY,
   }
 }
 
@@ -52,19 +54,19 @@ function getWeeklyLabels(start: number, end: number) {
 }
 
 export function getLabels(config: LabelConfig) {
-  if (config.dateType == 'MONTHLY') {
+  if (config.chartType == ChartType.MONTHLY) {
     return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   }
 
-  if (config.dateType == 'YEAR' && config.start && config.end) {
+  if (config.chartType == ChartType.YEARLY && config.start && config.end) {
     return getYearlyLabels(config.start, config.end)
   }
 
-  if (config.dateType == 'WEEKDAY') {
+  if (config.chartType == ChartType.WEEKDAY) {
     return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   }
 
-  if (config.dateType == 'WEEKLY' && config.start && config.end) {
+  if (config.chartType == ChartType.WEEKLY && config.start && config.end) {
     return getWeeklyLabels(config.start, config.end)
   }
 }

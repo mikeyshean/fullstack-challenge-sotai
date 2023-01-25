@@ -1,7 +1,12 @@
-export type DateType = 'MONTHLY' | 'YEAR' | 'WEEKDAY' | 'WEEKLY'
+export enum ChartType {
+  MONTHLY = 'Monthly',
+  YEARLY = 'Yearly',
+  WEEKLY = 'Weekly',
+  WEEKDAY = 'Weekday'
+}
 
 export type LabelConfig = {
-  dateType: DateType
+  chartType: ChartType
   count?: number
   start?: number
   end?: number
