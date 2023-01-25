@@ -1,8 +1,44 @@
 
+import { BACKGROUND_COLORS, BORDER_COLORS, range } from '@client/utils'
 import { Bar } from 'react-chartjs-2'
 
+export type DateType = 'MONTH' | 'YEAR'
 
-export function BarChart() {
+type LabelConfig = {
+  dateType: DateType
+  count?: number
+  start?: number
+  end?: number
+}
+
+function getYearlyLabels(start: number, end: number) {
+  return range(end-start, start).map(item => String(item))
+}
+
+function getLabels(config: LabelConfig) {
+  if (config.dateType == 'MONTH') {
+    // TODO
+  }
+
+  if (config.dateType == 'YEAR' && config.start && config.end) {
+    return getYearlyLabels(config.start, config.end)
+  }
+}
+
+
+export function BarChart({
+   dataValues, 
+   labelConfig, 
+   title, 
+   dataLabel 
+  }: { 
+    dataValues: number[],
+    labelConfig: LabelConfig,
+    title: string,
+    dataLabel: string
+  }) {
+  const xLabels = getLabels(labelConfig)
+  
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -12,24 +48,20 @@ export function BarChart() {
       },
       title: {
         display: true,
-        text: 'Chart.js Bar Chart',
+        text: title,
       },
     },
   };
 
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   const data = {
-    labels,
+    labels: xLabels,
     datasets: [
       {
-        label: 'Dataset 1',
-        data: labels.map(() => Math.random() * 1000),
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-      {
-        label: 'Dataset 2',
-        data: labels.map(() => Math.random() * 1000),
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        label: dataLabel,
+        data: dataValues,
+        backgroundColor: BACKGROUND_COLORS.slice(0, dataValues.length),
+        borderColor: BORDER_COLORS.slice(0, dataValues.length),
+        borderWidth: 1
       },
     ],
   };
