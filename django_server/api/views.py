@@ -45,3 +45,8 @@ class CpuHoursViewSet(ViewSet):
 
         serializer = HoursByWeekSerializer(cpu_hours, many=True)
         return Response(serializer.data)
+    
+    @action(detail=False, methods=["get"], url_path="years")
+    def list_years(self, request):
+        years = CpuHoursService.list_years()
+        return Response(years)

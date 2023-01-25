@@ -51,3 +51,6 @@ class CpuHoursService:
         ).values(
             'grouped_week'
         ).annotate(total=Sum('hours'))
+
+    def list_years():
+        return CpuHours.objects.dates('date', 'year', order='DESC')
